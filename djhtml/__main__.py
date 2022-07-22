@@ -53,6 +53,7 @@ def main():
         "-i", "--in-place", action="store_true", help="modify files in-place"
     )
     parser.add_argument("-c", "--check", action="store_true", help="don't modify files")
+    parser.add_argument("-v", "--verbose", action="store_true", help="print unformatted files")
     parser.add_argument("-q", "--quiet", action="store_true", help="be quiet")
     parser.add_argument(
         "-t",
@@ -137,6 +138,8 @@ def main():
         # Write output file
         if changed and args.check:
             changed_files += 1
+            if args.verbose:
+                print(f"{input_file} needs reformatting.")
         elif changed:
             output_filename = input_file.name if args.in_place else args.output_file
             try:
